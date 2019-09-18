@@ -32,8 +32,8 @@ class Command(BaseCommand):
         wrote = 0
         month_map = {'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4, 'May': 5, 'Jun': 6, 'Jul': 7,
                      'Aug': 8, 'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12}
-        objects_list = [] # Массив объектов для одной транзакции
-        size_transaction = 50000 # Число объектов в транзакции
+        objects_list = []  # Массив объектов для одной транзакции
+        size_transaction = 50000  # Число объектов в транзакции
 
         with requests.get(url, stream=True) as req:
             total_size = int(req.headers.get('content-length', 0))
