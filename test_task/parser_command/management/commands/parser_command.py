@@ -14,7 +14,7 @@ class Command(BaseCommand):
     help = 'Parsing link from CLI\n Launch: python manage.py parser_command <link>'
 
     def handle(self, *args, **options):
-        self.download_file(*args)
+        self.parse_file(*args)
 
 # Получение ссылки в качестве аргумента
     def add_arguments(self, parser):
@@ -24,16 +24,16 @@ class Command(BaseCommand):
             dest='args'
         )
 
-    def download_file(self, url):
+    def parse_file(self, url):
         """
-        Сохранение данных, полученных по ссылке, в файл
+        Получение данных, обработка и сохранение в БД
         """
 
         wrote = 0
         month_map = {'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4, 'May': 5, 'Jun': 6, 'Jul': 7,
                      'Aug': 8, 'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12}
-        objects_list = []
-        size_transaction = 50000
+        objects_list = [] # Массив объектов для одной транзакции
+        size_transaction = 50000 # Число объектов в транзакции
 
         with requests.get(url, stream=True) as req:
             total_size = int(req.headers.get('content-length', 0))
