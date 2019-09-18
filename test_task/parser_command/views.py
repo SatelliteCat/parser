@@ -91,17 +91,17 @@ def export(request):
     if request.method == "POST" or question is not None:
         if question is not None:
             findtext = question
-        message_list = dbLog.objects.filter(
-            Q(ipAddress__iexact=findtext) |
-            Q(dateLog__iexact=findtext) |
-            Q(httpMethod__iexact=findtext) |
-            Q(uriLog__iexact=findtext) |
-            Q(numError__iexact=findtext) |
-            Q(sizeAnswer__iexact=findtext)
+        message_list = Log.objects.filter(
+            Q(ip_address__iexact=findtext) |
+            Q(date_log__iexact=findtext) |
+            Q(http_method__iexact=findtext) |
+            Q(uri_log__iexact=findtext) |
+            Q(num_error__iexact=findtext) |
+            Q(size_answer__iexact=findtext)
         )
         last_question += f'q={findtext}&'
     else:
-        message_list = dbLog.objects.all()
+        message_list = Log.objects.all()
 
     # Write some test data.
     for row_num, obj in enumerate(message_list):
