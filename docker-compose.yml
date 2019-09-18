@@ -5,7 +5,11 @@ services:
     image: postgres
   web:
     build: .
+<<<<<<< Updated upstream
     command: python parserModule/manage.py runserver 0.0.0.0:8000
+=======
+    command: python test_task/manage.py runserver 0.0.0.0:8000
+>>>>>>> Stashed changes
     volumes:
       - .:/code
     ports:
