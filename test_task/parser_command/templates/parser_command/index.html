@@ -5,7 +5,7 @@
 {% block content %}
 <p>Тестовое задание на Python разработчика.</p>
 
-<form method="POST" action="/">
+<form method="GET" action="/">
     {% csrf_token %}
     <input type="text" name="search" placeholder="Поиск" />
     <input type="submit" value="Поиск">
@@ -23,7 +23,7 @@
             <th>Size answer</th>
             <th>
                 <form method="POST" action="/">
-                    <a href="{% url 'export' %}">Экспорт XLSX</a>
+                    <a href="{% url 'export' %}">Экспорт всех данных в XLSX</a>
                 </form>
             </th>
         </tr>

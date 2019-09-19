@@ -1,8 +1,8 @@
 from django.urls import path
 
-from parser_command import views
+from parser_command.views import IndexView
 
 urlpatterns = [
-    path("", views.index, name="home"),
-    path("export", views.export, name="export"),
+    path("", IndexView.as_view(), name="home"),
+    path("export", IndexView.export, name="export"),
 ]

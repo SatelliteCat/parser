@@ -29,11 +29,10 @@ class Command(BaseCommand):
         Получение данных, обработка и сохранение в БД
         """
 
-        wrote = 0
         month_map = {'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4, 'May': 5, 'Jun': 6, 'Jul': 7,
                      'Aug': 8, 'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12}
         objects_list = []  # Массив объектов для одной транзакции
-        size_transaction = 50000  # Число объектов в транзакции
+        size_transaction = 100  # Число объектов в транзакции
 
         with requests.get(url, stream=True) as req:
             total_size = int(req.headers.get('content-length', 0))
@@ -45,8 +44,6 @@ class Command(BaseCommand):
                 desc='Parsing'
             )
             for data in req.iter_lines(decode_unicode=True):
-                wrote = wrote + len(data)
-
                 # Парсинг данных
                 split_line = (data).split()
                 if len(split_line) > 0:
@@ -79,9 +76,6 @@ class Command(BaseCommand):
 
                 t.update(sys.getsizeof(data))
             t.close()
-
-        if total_size != 0 and wrote != total_size:
-            print("ERROR, something went wrong")
 
 
 class FixedOffset(tzinfo):
